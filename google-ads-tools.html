@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Ads Інструменти — Безкоштовні утиліти</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b1120;
+    --surface: #131e30;
+    --surface2: #1a2740;
+    --border: #1e3050;
+    --blue: #4285F4;
+    --blue-dim: rgba(66,133,244,0.12);
+    --green: #34A853;
+    --green-dim: rgba(52,168,83,0.12);
+    --yellow: #FBBC04;
+    --red: #EA4335;
+    --text: #e8edf5;
+    --muted: #7a8fa8;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,17,32,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; gap: 4px;
+    height: 54px; overflow-x: auto;
+  }
+  .nav-logo {
+    font-weight: 700; font-size: 13px; letter-spacing: .04em;
+    color: var(--blue); white-space: nowrap; margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--muted); font-weight: 400; }
+  nav a {
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    padding: 6px 12px; border-radius: 6px; white-space: nowrap;
+    flex-shrink: 0; transition: color .15s, background .15s;
+  }
+  nav a:hover { color: var(--text); background: var(--surface); }
+  nav a.active { color: var(--blue); background: var(--blue-dim); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 24px 48px;
+    max-width: 860px; margin: 0 auto; text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--blue-dim); border: 1px solid rgba(66,133,244,0.25);
+    color: var(--blue); font-size: 12px; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 28px;
+  }
+  .hero-badge::before { content: '◆'; font-size: 8px; }
+  .hero h1 {
+    font-size: clamp(30px, 5vw, 52px); font-weight: 700;
+    line-height: 1.12; letter-spacing: -.02em;
+    margin-bottom: 18px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #4285F4 0%, #34A853 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    color: var(--muted); font-size: 17px; max-width: 560px; margin: 0 auto 40px;
+  }
+  .g-dots {
+    display: flex; justify-content: center; gap: 8px; margin-bottom: 48px;
+  }
+  .g-dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .g-dots span:nth-child(1) { background: #4285F4; animation-delay: 0s; }
+  .g-dots span:nth-child(2) { background: #EA4335; animation-delay: .2s; }
+  .g-dots span:nth-child(3) { background: #FBBC04; animation-delay: .4s; }
+  .g-dots span:nth-child(4) { background: #34A853; animation-delay: .6s; }
+  @keyframes pulse { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
+
+  /* ── TOOL GRID ── */
+  .tools-index {
+    max-width: 860px; margin: 0 auto 24px; padding: 0 24px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;
+  }
+  .tool-card-idx {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px;
+    cursor: pointer; transition: border-color .2s, transform .15s, background .15s;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .tool-card-idx:hover {
+    border-color: var(--blue); background: var(--surface2); transform: translateY(-2px);
+  }
+  .tool-card-idx .icon {
+    font-size: 24px; line-height: 1;
+  }
+  .tool-card-idx h3 { font-size: 14px; font-weight: 600; }
+  .tool-card-idx p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .tool-card-idx .arrow {
+    margin-top: auto; font-size: 12px; color: var(--blue);
+    font-weight: 600; letter-spacing: .03em;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    max-width: 860px; margin: 0 auto 60px; padding: 0 24px;
+    scroll-margin-top: 70px;
+  }
+  .section-head {
+    border-left: 3px solid var(--blue);
+    padding-left: 16px; margin-bottom: 24px;
+  }
+  .section-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+  .section-head p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+  .tool-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px;
+  }
+
+  /* ── FORM ELEMENTS ── */
+  label { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+  input[type=text], input[type=url], input[type=number], select, textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); border-radius: 8px; padding: 10px 14px;
+    font-family: inherit; font-size: 14px; outline: none;
+    transition: border-color .2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--blue); }
+  textarea { resize: vertical; min-height: 100px; font-family: var(--mono); font-size: 13px; }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media(max-width:560px){ .row,.row3 { grid-template-columns: 1fr; } }
+
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue); color: #fff; border: none;
+    border-radius: 8px; padding: 10px 20px;
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: opacity .15s, transform .1s;
+  }
+  .btn:hover { opacity: .88; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn.green { background: var(--green); }
+  .btn.outline {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+  }
+  .btn.outline:hover { border-color: var(--blue); color: var(--text); }
+
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+
+  /* ── OUTPUT ── */
+  .output {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; font-family: var(--mono); font-size: 13px;
+    line-height: 1.7; white-space: pre-wrap; word-break: break-all;
+    color: #a8c4e0; min-height: 60px; margin-top: 18px;
+    position: relative;
+  }
+  .output-label {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+  }
+  .output-label span { font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing:.04em; text-transform:uppercase; }
+  .copy-btn {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--muted); border-radius: 6px; padding: 4px 10px;
+    font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit;
+    transition: color .15s, border-color .15s;
+  }
+  .copy-btn:hover { color: var(--text); border-color: var(--blue); }
+
+  /* ── TAGS/CHIPS ── */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chip {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px 12px;
+    font-size: 13px; cursor: pointer; transition: border-color .15s, color .15s;
+  }
+  .chip:hover { border-color: var(--blue); color: var(--blue); }
+  .chip.active { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); font-weight:600; }
+
+  /* ── MATCH TYPE BADGES ── */
+  .match-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 12px; font-weight: 600; font-family: var(--mono);
+  }
+  .match-broad { background: rgba(251,188,4,.15); color: var(--yellow); }
+  .match-phrase { background: rgba(66,133,244,.15); color: #7ab4f5; }
+  .match-exact  { background: rgba(52,168,83,.15);  color: #5ccc84; }
+
+  /* ── RSA GENERATOR ── */
+  .rsa-counter {
+    font-size: 12px; font-family: var(--mono);
+    float: right; color: var(--muted);
+  }
+  .rsa-counter.warn { color: var(--yellow); }
+  .rsa-counter.over { color: var(--red); }
+  .rsa-preview {
+    background: #fff; border-radius: 10px; padding: 18px 20px; margin-top: 18px;
+    font-family: Arial, sans-serif;
+  }
+  .rsa-preview .url-line { color: #202124; font-size: 12px; }
+  .rsa-preview .title-line { color: #1a0dab; font-size: 18px; font-weight: 400; line-height: 1.3; margin: 2px 0; }
+  .rsa-preview .desc-line  { color: #4d5156; font-size: 14px; line-height: 1.5; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 56px 24px; }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: 860px; margin: 0 auto; padding: 32px 24px 48px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px; flex-wrap: wrap;
+  }
+  footer .brand { font-weight: 700; font-size: 14px; color: var(--blue); }
+  footer p { font-size: 13px; color: var(--muted); }
+
+  /* ── SUCCESS TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    background: var(--green); color: #fff; border-radius: 8px;
+    padding: 10px 18px; font-size: 14px; font-weight: 600;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  select option { background: var(--surface); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Google Ads <span>Інструменти</span></div>
+  <a href="#utm" onclick="scrollTo('utm')">UTM-мітки</a>
+  <a href="#rsa" onclick="scrollTo('rsa')">Генератор RSA</a>
+  <a href="#match" onclick="scrollTo('match')">Типи відповідності</a>
+  <a href="#keywords" onclick="scrollTo('keywords')">Мінус-слова</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Безкоштовно · Без реєстрації</div>
+  <h1>Утиліти для<br><em>Google Ads</em></h1>
+  <p>Інструменти, що прискорюють роботу з рекламними кампаніями — від UTM-міток до очищення ключових слів</p>
+  <div class="g-dots"><span></span><span></span><span></span><span></span></div>
+</div>
+
+<!-- INDEX CARDS -->
+<div class="tools-index">
+  <div class="tool-card-idx" onclick="document.getElementById('utm').scrollIntoView({behavior:'smooth'})">
+    <div class="icon">🔗</div>
+    <h3>Генератор UTM-міток</h3>
+    <p>Швидко будує UTM-посилання для Google Ads з усіма динамічними параметрами</p>
+    <div class="arrow">Відкрити →</div>
+  </div>
+  <div class="tool-card-idx" onclick="document.getElementById('rsa').scrollIntoView({behavior:'smooth'})">
+    <div class="icon">📝</div>
+    <h3>Генератор RSA-оголошень</h3>
+    <p>Складайте адаптивні оголошення з підрахунком символів і live-прев'ю</p>
+    <div class="arrow">Відкрити →</div>
+  </div>
+  <div class="tool-card-idx" onclick="document.getElementById('match').scrollIntoView({behavior:'smooth'})">
+    <div class="icon">🔀</div>
+    <h3>Конвертер відповідності</h3>
+    <p>Перетворює список ключів у широку, фразову та точну відповідність</p>
+    <div class="arrow">Відкрити →</div>
+  </div>
+  <div class="tool-card-idx" onclick="document.getElementById('keywords').scrollIntoView({behavior:'smooth'})">
+    <div class="icon">🚫</div>
+    <h3>Збір мінус-слів</h3>
+    <p>Витягує унікальні слова із запитів, фільтрує стоп-слова й формує список мінус-слів для кампанії</p>
+    <div class="arrow">Відкрити →</div>
+  </div>
+</div>
+
+<!-- ══════ 1. UTM ══════ -->
+<div class="section" id="utm">
+  <div class="section-head">
+    <h2>🔗 Генератор UTM-міток</h2>
+    <p>Формує посилання з UTM-параметрами для відстеження трафіку Google Ads</p>
+  </div>
+  <div class="tool-box">
+    <div class="field">
+      <label>URL сторінки *</label>
+      <input type="url" id="utm-url" placeholder="https://example.com/product" oninput="buildUTM()">
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>utm_source</label>
+        <input type="text" id="utm-source" value="google" oninput="buildUTM()">
+      </div>
+      <div class="field">
+        <label>utm_medium</label>
+        <input type="text" id="utm-medium" value="cpc" oninput="buildUTM()">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>utm_campaign</label>
+        <input type="text" id="utm-campaign" placeholder="назва_кампанії або {campaign}" oninput="buildUTM()">
+      </div>
+      <div class="field">
+        <label>utm_content</label>
+        <input type="text" id="utm-content" placeholder="{adgroupid} або назва_групи" oninput="buildUTM()">
+      </div>
+    </div>
+    <div class="field">
+      <label>utm_term</label>
+      <input type="text" id="utm-term" placeholder="{keyword} або конкретне слово" oninput="buildUTM()">
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);margin-top:4px;">Швидкі шаблони для utm_campaign:</p>
+    <div class="chips">
+      <div class="chip" onclick="setUtmCampaign('{campaign}')"><code>{campaign}</code></div>
+      <div class="chip" onclick="setUtmCampaign('{campaignid}')"><code>{campaignid}</code></div>
+      <div class="chip" onclick="setUtmCampaign('brand_search')">brand_search</div>
+      <div class="chip" onclick="setUtmCampaign('pmax_shopping')">pmax_shopping</div>
+      <div class="chip" onclick="setUtmCampaign('remarketing_display')">remarketing_display</div>
+    </div>
+
+    <div class="output-label" style="margin-top:20px;">
+      <span>Готове посилання</span>
+      <button class="copy-btn" onclick="copyText('utm-result')">Копіювати</button>
+    </div>
+    <div class="output" id="utm-result" style="color:#6ec6f5;"></div>
+  </div>
+</div>
+
+<!-- ══════ 2. RSA ══════ -->
+<div class="section" id="rsa">
+  <div class="section-head">
+    <h2>📝 Генератор RSA-оголошень</h2>
+    <p>Адаптивні пошукові оголошення: до 15 заголовків і 4 описів. Лічильник символів і live-прев'ю</p>
+  </div>
+  <div class="tool-box">
+    <div class="field">
+      <label>Відображуваний URL (домен)</label>
+      <input type="text" id="rsa-domain" value="example.com" oninput="updateRSAPreview()">
+    </div>
+    <div class="field">
+      <label>Шлях 1 (необов'язково, до 15 симв.)</label>
+      <input type="text" id="rsa-path1" placeholder="товари" maxlength="15" oninput="updateRSAPreview()">
+    </div>
+    <div id="rsa-headlines-wrap"></div>
+    <button class="btn outline" onclick="addHeadline()" style="margin-top:8px;font-size:13px;padding:7px 14px;">+ Додати заголовок</button>
+
+    <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--border)">
+      <label style="margin-bottom:12px;font-size:14px;font-weight:600;color:var(--text)">Описи (до 4, макс. 90 символів)</label>
+      <div id="rsa-descs-wrap"></div>
+      <button class="btn outline" onclick="addDesc()" style="margin-top:8px;font-size:13px;padding:7px 14px;">+ Додати опис</button>
+    </div>
+
+    <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--border)">
+      <label>Прев'ю оголошення</label>
+      <div class="rsa-preview" id="rsa-preview">
+        <div class="url-line" id="prev-url">example.com</div>
+        <div class="title-line" id="prev-titles">Заголовок 1 | Заголовок 2 | Заголовок 3</div>
+        <div class="desc-line" id="prev-desc">Опис оголошення з'явиться тут після заповнення полів вище.</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="exportRSA()">Експортувати CSV</button>
+      <button class="btn outline" onclick="clearRSA()">Очистити</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ 3. MATCH TYPES ══════ -->
+<div class="section" id="match">
+  <div class="section-head">
+    <h2>🔀 Конвертер типів відповідності</h2>
+    <p>Перетворює ключові слова на широку, фразову та точну відповідність</p>
+  </div>
+  <div class="tool-box">
+    <div class="field">
+      <label>Ключові слова (по одному на рядок)</label>
+      <textarea id="match-input" rows="7" placeholder="купити ноутбук&#10;ноутбук ціна&#10;apple macbook pro"></textarea>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Виберіть типи відповідності:</p>
+    <div class="chips">
+      <div class="chip active" id="chip-broad" onclick="toggleChip('broad')">Широка</div>
+      <div class="chip active" id="chip-phrase" onclick="toggleChip('phrase')">"Фразова"</div>
+      <div class="chip active" id="chip-exact" onclick="toggleChip('exact'">[Точна]</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="convertMatch()">Конвертувати</button>
+      <button class="btn outline" onclick="clearMatch()">Очистити</button>
+    </div>
+
+    <div class="output-label">
+      <span>Результат</span>
+      <button class="copy-btn" onclick="copyText('match-result')">Копіювати</button>
+    </div>
+    <div class="output" id="match-result"></div>
+  </div>
+</div>
+
+<!-- ══════ 5. NEGATIVE KEYWORDS ══════ -->
+<div class="section" id="keywords">
+  <div class="section-head">
+    <h2>🚫 Збір мінус-слів</h2>
+    <p>Вставте пошукові запити зі звіту Google Ads — інструмент витягне окремі слова, відфільтрує стоп-слова і підготує список мінус-слів</p>
+  </div>
+  <div class="tool-box">
+
+    <div class="field">
+      <label>Пошукові запити (по одному на рядок)</label>
+      <textarea id="kw-input" rows="10" placeholder="купити диван недорого&#10;замовити диван лофт київ&#10;диван ціна фото&#10;диван б/у авіто&#10;ремонт дивана своїми руками"></textarea>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <label style="margin-bottom:8px;">Стоп-слова (не включати в мінус-список):</label>
+      <textarea id="kw-stopwords" rows="3" placeholder="купити, замовити, диван, ціна, фото — слова які НЕ є мінусами"></textarea>
+      <p style="font-size:12px;color:var(--muted);margin-top:6px;">Введіть через кому або з нового рядка слова, які НЕ треба виносити в мінуси (наприклад, ваші основні ключі)</p>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Швидкі стоп-слова (клік — додати):</p>
+    <div class="chips" id="preset-chips">
+      <div class="chip" onclick="addPreset('б/у,вживаний,вживане,секонд,б у')">🗑 Б/У</div>
+      <div class="chip" onclick="addPreset('своїми руками,diy,зробити самому,самостійно')">🔧 DIY</div>
+      <div class="chip" onclick="addPreset('авіто,olx,rozetka,prom,безкоштовно,безплатно')">🛒 Майданчики</div>
+      <div class="chip" onclick="addPreset('відео,youtube,фото,картинки,зображення')">📷 Медіа</div>
+      <div class="chip" onclick="addPreset('ремонт,реставрація,відновлення,полагодити')">🔨 Ремонт</div>
+      <div class="chip" onclick="addPreset('відгуки,огляд,порівняння,рейтинг,топ')">⭐ Огляди</div>
+      <div class="chip" onclick="addPreset('вакансія,робота,майстер,зарплата')">💼 Вакансії</div>
+      <div class="chip" onclick="addPreset('скачати,завантажити,pdf,інструкція,схема')">📄 Контент</div>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);margin-top:18px;margin-bottom:10px;">Тип відповідності мінус-слів:</p>
+    <div class="chips">
+      <div class="chip active" id="neg-broad" onclick="toggleNegType('broad')">Широка</div>
+      <div class="chip" id="neg-phrase" onclick="toggleNegType('phrase')">"Фразова"</div>
+      <div class="chip" id="neg-exact" onclick="toggleNegType('exact'">[Точна]</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="buildNegatives()">Зібрати мінус-слова</button>
+      <button class="btn outline" onclick="clearNeg()">Очистити</button>
+    </div>
+
+    <div class="output-label">
+      <span>Мінус-слова</span>
+      <button class="copy-btn" onclick="copyText('kw-result')">Копіювати</button>
+    </div>
+    <div class="output" id="kw-result"></div>
+    <div id="kw-stat" style="font-size:13px;color:var(--muted);margin-top:8px;"></div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="brand">Google Ads Інструменти</div>
+    <p>Безкоштовні утиліти для PPC-спеціалістів</p>
+  </div>
+  <p>Зроблено з ❤️ для українських маркетологів</p>
+</footer>
+
+<div class="toast" id="toast">✓ Скопійовано</div>
+
+<script>
+// ─── HELPERS ───
+function showToast(msg='✓ Скопійовано') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1800);
+}
+function copyText(id) {
+  const el = document.getElementById(id);
+  const txt = el.innerText || el.value || '';
+  if (!txt.trim()) return;
+  navigator.clipboard.writeText(txt).then(()=>showToast()).catch(()=>{
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); showToast();
+  });
+}
+
+// ─── UTM ───
+function buildUTM() {
+  const url = document.getElementById('utm-url').value.trim();
+  if (!url) { document.getElementById('utm-result').textContent = ''; return; }
+  const params = {
+    utm_source:   document.getElementById('utm-source').value.trim(),
+    utm_medium:   document.getElementById('utm-medium').value.trim(),
+    utm_campaign: document.getElementById('utm-campaign').value.trim(),
+    utm_content:  document.getElementById('utm-content').value.trim(),
+    utm_term:     document.getElementById('utm-term').value.trim(),
+  };
+  let base = url.includes('?') ? url+'&' : url+'?';
+  const pairs = Object.entries(params).filter(([,v])=>v).map(([k,v])=>`${k}=${encodeURIComponent(v)}`);
+  document.getElementById('utm-result').textContent = base + pairs.join('&');
+}
+function setUtmCampaign(val) {
+  document.getElementById('utm-campaign').value = val;
+  buildUTM();
+}
+
+// ─── RSA ───
+let headlines = ['', '', ''];
+let descs = ['', ''];
+
+function renderRSAHeadlines() {
+  const wrap = document.getElementById('rsa-headlines-wrap');
+  wrap.innerHTML = '';
+  headlines.forEach((h, i) => {
+    const div = document.createElement('div');
+    div.className = 'field';
+    div.innerHTML = `
+      <label>Заголовок ${i+1} <span class="rsa-counter" id="hc-${i}">0/30</span></label>
+      <input type="text" maxlength="30" value="${h}" oninput="headlines[${i}]=this.value;updateHCount(${i},this.value);updateRSAPreview()"
+        placeholder="до 30 символів">
+    `;
+    wrap.appendChild(div);
+    updateHCount(i, h);
+  });
+}
+function updateHCount(i, val) {
+  const el = document.getElementById('hc-'+i);
+  if (!el) return;
+  const n = val.length;
+  el.textContent = `${n}/30`;
+  el.className = 'rsa-counter' + (n>30?' over':n>25?' warn':'');
+}
+function addHeadline() {
+  if (headlines.length >= 15) return showToast('Максимум 15 заголовків');
+  headlines.push(''); renderRSAHeadlines(); updateRSAPreview();
+}
+
+function renderRSADescs() {
+  const wrap = document.getElementById('rsa-descs-wrap');
+  wrap.innerHTML = '';
+  descs.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'field';
+    div.innerHTML = `
+      <label>Опис ${i+1} <span class="rsa-counter" id="dc-${i}">0/90</span></label>
+      <textarea rows="2" maxlength="90" oninput="descs[${i}]=this.value;updateDCount(${i},this.value);updateRSAPreview()"
+        placeholder="до 90 символів">${d}</textarea>
+    `;
+    wrap.appendChild(div);
+    updateDCount(i, d);
+  });
+}
+function updateDCount(i, val) {
+  const el = document.getElementById('dc-'+i);
+  if (!el) return;
+  const n = val.length;
+  el.textContent = `${n}/90`;
+  el.className = 'rsa-counter' + (n>90?' over':n>80?' warn':'');
+}
+function addDesc() {
+  if (descs.length >= 4) return showToast('Максимум 4 описи');
+  descs.push(''); renderRSADescs(); updateRSAPreview();
+}
+
+function updateRSAPreview() {
+  const dom = document.getElementById('rsa-domain').value || 'example.com';
+  const p1  = document.getElementById('rsa-path1').value;
+  document.getElementById('prev-url').textContent = dom + (p1 ? '/' + p1 : '');
+  const titles = headlines.filter(h=>h.trim()).slice(0,3);
+  document.getElementById('prev-titles').textContent = titles.length ? titles.join(' | ') : 'Заголовок 1 | Заголовок 2 | Заголовок 3';
+  const d = descs.filter(d=>d.trim()).slice(0,2).join(' ');
+  document.getElementById('prev-desc').textContent = d || 'Опис оголошення з\'явиться тут після заповнення полів вище.';
+}
+function clearRSA() {
+  headlines = ['','','']; descs = ['',''];
+  document.getElementById('rsa-domain').value = 'example.com';
+  document.getElementById('rsa-path1').value = '';
+  renderRSAHeadlines(); renderRSADescs(); updateRSAPreview();
+}
+function exportRSA() {
+  let csv = 'Тип,Значення\n';
+  headlines.filter(h=>h.trim()).forEach(h => csv += `Заголовок,"${h}"\n`);
+  descs.filter(d=>d.trim()).forEach(d => csv += `Опис,"${d}"\n`);
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'rsa_оголошення.csv'; a.click();
+}
+
+// ─── MATCH TYPES ───
+const matchState = { broad: true, phrase: true, exact: true };
+function toggleChip(type) {
+  matchState[type] = !matchState[type];
+  const el = document.getElementById('chip-'+type);
+  el.classList.toggle('active', matchState[type]);
+}
+function convertMatch() {
+  const lines = document.getElementById('match-input').value
+    .split('\n').map(l=>l.trim()).filter(Boolean);
+  if (!lines.length) return;
+  const out = [];
+  lines.forEach(kw => {
+    if (matchState.broad)  out.push(kw);
+    if (matchState.phrase) out.push(`"${kw}"`);
+    if (matchState.exact)  out.push(`[${kw}]`);
+  });
+  document.getElementById('match-result').textContent = out.join('\n');
+}
+function clearMatch() {
+  document.getElementById('match-input').value = '';
+  document.getElementById('match-result').textContent = '';
+}
+
+// ─── NEGATIVE KEYWORDS ───
+const negTypeState = { broad: true, phrase: false, exact: false };
+function toggleNegType(type) {
+  // single-select
+  Object.keys(negTypeState).forEach(k => { negTypeState[k] = false; document.getElementById('neg-'+k).classList.remove('active'); });
+  negTypeState[type] = true;
+  document.getElementById('neg-'+type).classList.add('active');
+}
+
+function addPreset(words) {
+  const el = document.getElementById('kw-stopwords');
+  const cur = el.value.trim();
+  const add = words.split(',').map(w=>w.trim()).join(', ');
+  el.value = cur ? cur + ', ' + add : add;
+}
+
+function buildNegatives() {
+  const raw = document.getElementById('kw-input').value;
+  const stopRaw = document.getElementById('kw-stopwords').value;
+
+  const stopWords = new Set(
+    stopRaw.split(/[,\n]/).map(w => w.trim().toLowerCase()).filter(Boolean)
+  );
+
+  // tokenize all queries into individual words
+  const allWords = raw
+    .toLowerCase()
+    .split('\n')
+    .flatMap(line => line.split(/[\s,;|\/]+/))
+    .map(w => w.replace(/[«»""''()\[\]{}!?.,:;—–\-]+/g, '').trim())
+    .filter(w => w.length > 1);
+
+  // deduplicate, filter stopwords
+  const unique = [...new Set(allWords)].filter(w => !stopWords.has(w)).sort((a,b) => a.localeCompare(b,'uk'));
+
+  // apply match type wrapper
+  const format = w => {
+    if (negTypeState.phrase) return `"${w}"`;
+    if (negTypeState.exact)  return `[${w}]`;
+    return w;
+  };
+
+  const result = unique.map(format);
+  document.getElementById('kw-result').textContent = result.join('\n');
+  document.getElementById('kw-stat').textContent =
+    `Знайдено ${result.length} унікальних мінус-слів із ${raw.split('\n').filter(l=>l.trim()).length} запитів`;
+}
+
+function clearNeg() {
+  document.getElementById('kw-input').value = '';
+  document.getElementById('kw-stopwords').value = '';
+  document.getElementById('kw-result').textContent = '';
+  document.getElementById('kw-stat').textContent = '';
+}
+
+// ─── INIT ───
+renderRSAHeadlines();
+renderRSADescs();
+buildUTM();
+</script>
+</body>
+</html>
